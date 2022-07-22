@@ -34,9 +34,9 @@ function ResponsiveDrawer(props) {
 
       <List>
         {drawerItems.map((Item, index) => (
-          <Tooltip title={Item.name} placement="top">
+          <Tooltip key={index} title={Item.name} placement="top">
             <Link href={Item.link}>
-              <ListItem key={index} disablePadding>
+              <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>{Item.icon}</ListItemIcon>
                   <ListItemText primary={Item.title} />

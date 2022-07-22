@@ -10,7 +10,7 @@ export const drawerItems = [
   },
   {
     title: "Guess the Number ",
-    // name: "Guess the Number ",
+    name: "Guess the Number ",
     icon: <HelpOutlineIcon />,
     link: "/guess-the-number",
   },
