@@ -19,6 +19,8 @@ const RockPaperScissors = () => {
     setComGuess(Guess[index]);
     setUserSelection(value);
 
+    //TODO: Logic for user selection. Rock beats scissors, Paper beats rock and Scissors beats paper
+
     if (userSelection === "Paper" && comGuess === "Paper") {
       setResult("Draw");
     }
