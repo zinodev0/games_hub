@@ -2,22 +2,31 @@ import React, { useState, useEffect } from "react";
 import Layout from "../../Layout";
 
 const index = () => {
-  const [userGuess, setUserGuess] = useState(null);
+  const [userGuess, setUserGuess] = useState("");
   const [compGuess, setCompGuess] = useState(null);
+  const [numGuess, setNumGuess] = useState(5);
   const [hint, setHint] = useState("");
+  const [EnterGuess, setEnterGuess] = useState(false);
 
   useEffect(() => {
     setCompGuess(Math.floor(Math.random() * 99) + 1);
   }, []);
 
-  const gamePlay = () => {
-    if (userGuess > compGuess) {
-      setHint("Go Lower");
-    } else if (userGuess < compGuess) {
-      setHint("Go Higher");
-    } else if (userGuess === compGuess) {
-      setHint(`CONGRATULATIONS THE ANSWER WAS ${compGuess}`);
-    } else return;
+  const gamePlay = (e) => {
+    e.preventDefault();
+
+    while (numGuess > 0) {
+      if (userGuess > compGuess) {
+        setHint("Go Lower");
+        // setNumGuess((prevNumGuess) => prevNumGuess - 1);
+      } else if (userGuess < compGuess) {
+        setHint("Go Higher");
+        // setNumGuess((prevNumGuess) => prevNumGuess - 1);
+      } else if (userGuess === compGuess) {
+        setHint(`CONGRATULATIONS THE ANSWER WAS ${compGuess}`);
+      } else return;
+      setNumGuess((prevNumGuess) => prevNumGuess - 1);
+    }
   };
   return (
     <Layout>
@@ -29,18 +38,20 @@ const index = () => {
           guess it in 5 guesses, I would let you know if you should guess lower
           or higher
         </h5>
+        <p>You have {numGuess} Guesses left</p>
+        <form>
+          <input
+            value={userGuess}
+            onChange={(e) => setUserGuess(Number(e.target.value))}
+            type="number"
+            placeholder="Enter a number between 0 and 100"
+          />
+          <button type="submit" onClick={gamePlay}>
+            Submit
+          </button>
+        </form>
 
-        <input
-          value={userGuess}
-          onChange={(e) => setUserGuess(Number(e.target.value))}
-          type="number"
-          placeholder="Enter a number between 0 and 100"
-        />
-        <button type="submit" onClick={gamePlay}>
-          Submit
-        </button>
-
-        {userGuess !== null && (
+        {userGuess && (
           <h3 style={{ color: "blue" }}>
             {" "}
             You guessed {userGuess}, {userGuess !== compGuess && hint}{" "}
